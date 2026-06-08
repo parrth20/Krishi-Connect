@@ -1,0 +1,88 @@
+{% load static %}
+{% load i18n %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Farmer Assistant" %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Css/farmer-assistant.css' %}">
+</head>
+<body>
+    <nav class="assistant-nav">
+        <a href="{% url 'index' %}" class="brand-link">
+            <img src="{% static 'Images/logo.png' %}" alt="Krishi Connect">
+            <span>{% trans "Krishi Connect" %}</span>
+        </a>
+        <div class="assistant-nav-links">
+            <a href="{% url 'upload' %}">{% trans "Plant ID" %}</a>
+            <a href="{% url 'weather' %}">{% trans "Weather" %}</a>
+            <a href="{% url 'GovtScheme' %}">{% trans "Schemes" %}</a>
+        </div>
+    </nav>
+
+    <main class="assistant-shell">
+        <section class="assistant-main">
+            <div class="assistant-heading">
+                <p>{% trans "Weather-aware crop care" %}</p>
+                <h1>{% trans "Farmer Assistant" %}</h1>
+            </div>
+
+            <div class="chat-panel">
+                <div id="assistantMessages" class="assistant-messages">
+                    <div class="message bot">
+                        {% trans "Namaste. Ask about crop disease, cure, irrigation, or weather before spraying." %}
+                    </div>
+                </div>
+
+                <form id="assistantForm" class="assistant-form">
+                    {% csrf_token %}
+                    <input type="hidden" id="assistantDisease" value="{{ disease }}">
+                    <input type="text" id="assistantCity" value="{{ city }}" placeholder="{% trans 'City' %}" aria-label="City">
+                    <input type="text" id="assistantCrop" value="{{ crop }}" placeholder="{% trans 'Crop' %}" aria-label="Crop">
+                    <div class="question-row">
+                        <input type="text" id="assistantQuestion" placeholder="{% trans 'Ask: cure for rice blast in humid weather' %}" required>
+                        <button type="submit">
+                            <span aria-hidden="true">&rarr;</span>
+                            <span class="visually-hidden">{% trans "Send" %}</span>
+                        </button>
+                    </div>
+                </form>
+            </div>
+        </section>
+
+        <aside class="assistant-side">
+            <div class="action-panel">
+                <div>
+                    <h2>{% trans "Crop Image" %}</h2>
+                    <p>{% trans "Upload a leaf photo for crop and disease guidance." %}</p>
+                </div>
+                <a class="action-button" href="{% url 'upload' %}">{% trans "Upload" %}</a>
+            </div>
+
+            <div class="sample-panel">
+                <h2>{% trans "Preloaded Samples" %}</h2>
+                <div class="sample-grid">
+                    {% for case in sample_cases %}
+                    <article class="sample-card">
+                        <img src="{% static case.sample_image %}" alt="{{ case.crop }} {{ case.disease }}">
+                        <div>
+                            <h3>{{ case.title }}</h3>
+                            <p>{{ case.disease }}</p>
+                            <a href="{% url 'sample_diagnosis' case.slug %}">{{ case.button }}</a>
+                        </div>
+                    </article>
+                    {% endfor %}
+                </div>
+            </div>
+        </aside>
+    </main>
+
+    <script>
+        window.KRISHI_CHAT_API_URL = "{{ chat_api_url }}";
+    </script>
+    <script src="{% static 'js/farmer-assistant.js' %}"></script>
+</body>
+</html>

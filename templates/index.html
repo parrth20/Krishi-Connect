@@ -134,7 +134,9 @@
         <div class="menu-link">
             <ul>  
                 <li><a href="/">{% trans "Home" %}</a></li>
+                <li><a href="/assistant">{% trans "Assistant" %}</a></li>
                 <li><a href="/imgupload">{% trans "Plant Identification" %}</a></li>
+                <li><a href="/weather">{% trans "Weather" %}</a></li>
                 <li><a href="/GovtScheme">{% trans "Government Schemes" %}</a></li>
                 <li><a href="/map">{% trans "Map" %}</a>
                 </li>
@@ -163,8 +165,10 @@
       <!-- Navigation links (hidden by default) -->
       <div id="myLinks">
         <a href="/home">Home</a>
+        <a href="/assistant">Assistant</a>
         <a href="/map">Map</a>
         <a href="/imgupload">plant Identification</a>
+        <a href="/weather">Weather</a>
         <a href="/GovtScheme">Government Schemes</a>
         <a href="/login_user">Login</a>
         <a href="/register">SignUp</a>
@@ -188,7 +192,7 @@
           </p>
           <div class="home-button">
             <div class="button1">
-              <a href="#">{% trans "7007592420" %} <i class="fa-solid fa-caret-right"></i></a>
+              <a href="#">{% trans "9876543210" %} <i class="fa-solid fa-caret-right"></i></a>
             </div>
           </div>
         </div>
@@ -260,6 +264,7 @@
                   <p>
                     {% trans "Find out the weather forecast for the upcoming days." %}  
                   </p>
+                  <a href="/weather" id="plant-button">{% trans "Check weather" %}</a>
               </div>
           </div>
 

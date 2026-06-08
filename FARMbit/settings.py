@@ -74,6 +74,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    "allauth.account.middleware.AccountMiddleware",
     
 ]
 
@@ -166,7 +167,7 @@ STATICFILES_DIRS = [
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-ALLOWED_HOSTS = ['5cd4-14-98-233-17.in.ngrok.io','127.0.0.1']
+ALLOWED_HOSTS = ['5cd4-14-98-233-17.in.ngrok.io', '127.0.0.1', 'localhost']
 
 CSRF_TRUSTED_ORIGINS = ['https://5cd4-14-98-233-17.in.ngrok.io']
 

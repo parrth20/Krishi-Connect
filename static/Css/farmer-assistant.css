@@ -1,0 +1,270 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    color: #17211d;
+    background: #f4f7f2;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+.assistant-nav {
+    min-height: 72px;
+    padding: 14px clamp(18px, 4vw, 56px);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 18px;
+    background: #ffffff;
+    border-bottom: 1px solid #dfe7dc;
+}
+
+.brand-link,
+.assistant-nav-links a {
+    color: #123227;
+    text-decoration: none;
+}
+
+.brand-link {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    font-weight: 800;
+}
+
+.brand-link img {
+    width: 92px;
+    height: 46px;
+    object-fit: contain;
+}
+
+.assistant-nav-links {
+    display: flex;
+    gap: 18px;
+    font-weight: 700;
+}
+
+.assistant-shell {
+    width: min(1180px, calc(100% - 28px));
+    margin: 26px auto 40px;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 360px;
+    gap: 22px;
+}
+
+.assistant-main,
+.assistant-side {
+    min-width: 0;
+}
+
+.assistant-heading {
+    margin-bottom: 14px;
+}
+
+.assistant-heading p {
+    margin: 0 0 6px;
+    color: #5d6b66;
+    font-weight: 700;
+    text-transform: uppercase;
+    font-size: 0.78rem;
+}
+
+.assistant-heading h1 {
+    margin: 0;
+    font-size: clamp(2rem, 4vw, 3.3rem);
+    line-height: 1;
+    color: #0f3c2a;
+}
+
+.chat-panel,
+.action-panel,
+.sample-panel {
+    background: #ffffff;
+    border: 1px solid #dfe7dc;
+    border-radius: 8px;
+    box-shadow: 0 18px 40px rgba(35, 63, 48, 0.08);
+}
+
+.chat-panel {
+    min-height: 620px;
+    display: grid;
+    grid-template-rows: 1fr auto;
+    overflow: hidden;
+}
+
+.assistant-messages {
+    padding: 18px;
+    overflow-y: auto;
+}
+
+.message {
+    width: fit-content;
+    max-width: min(680px, 94%);
+    margin-bottom: 12px;
+    padding: 12px 14px;
+    border-radius: 8px;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+.message.bot {
+    background: #eaf2e6;
+    border: 1px solid #cadbc2;
+}
+
+.message.user {
+    margin-left: auto;
+    background: #163c2d;
+    color: #ffffff;
+}
+
+.assistant-form {
+    padding: 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    border-top: 1px solid #e5ece2;
+    background: #fbfcfa;
+}
+
+.assistant-form input {
+    width: 100%;
+    min-height: 44px;
+    border: 1px solid #cfd9ca;
+    border-radius: 6px;
+    padding: 10px 12px;
+    font: inherit;
+}
+
+.question-row {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: 1fr 52px;
+    gap: 10px;
+}
+
+.question-row button,
+.action-button,
+.sample-card a {
+    border: 0;
+    border-radius: 6px;
+    background: #f0b429;
+    color: #17211d;
+    font-weight: 800;
+    text-decoration: none;
+}
+
+.question-row button {
+    min-height: 44px;
+    font-size: 1.4rem;
+}
+
+.assistant-side {
+    display: grid;
+    gap: 18px;
+    align-content: start;
+}
+
+.action-panel {
+    padding: 18px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 14px;
+}
+
+.action-panel h2,
+.sample-panel h2 {
+    margin: 0 0 6px;
+    font-size: 1.1rem;
+}
+
+.action-panel p {
+    margin: 0;
+    color: #63716c;
+}
+
+.action-button {
+    padding: 10px 16px;
+    white-space: nowrap;
+}
+
+.sample-panel {
+    padding: 18px;
+}
+
+.sample-grid {
+    display: grid;
+    gap: 12px;
+}
+
+.sample-card {
+    display: grid;
+    grid-template-columns: 112px 1fr;
+    gap: 12px;
+    padding: 10px;
+    border: 1px solid #e1e9dd;
+    border-radius: 8px;
+    background: #fbfcfa;
+}
+
+.sample-card img {
+    width: 112px;
+    height: 92px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.sample-card h3 {
+    margin: 0 0 3px;
+    font-size: 0.98rem;
+}
+
+.sample-card p {
+    margin: 0 0 8px;
+    color: #63716c;
+    font-size: 0.9rem;
+}
+
+.sample-card a {
+    display: inline-flex;
+    padding: 8px 10px;
+    font-size: 0.86rem;
+}
+
+@media (max-width: 900px) {
+    .assistant-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .chat-panel {
+        min-height: 560px;
+    }
+}
+
+@media (max-width: 620px) {
+    .assistant-nav {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .assistant-nav-links {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .assistant-form {
+        grid-template-columns: 1fr;
+    }
+
+    .sample-card {
+        grid-template-columns: 96px 1fr;
+    }
+
+    .sample-card img {
+        width: 96px;
+        height: 88px;
+    }
+}

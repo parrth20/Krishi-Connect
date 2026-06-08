@@ -1,11 +1,18 @@
 
+import os
+
+import requests
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from chatBackend.chat import chat
+from chatBackend.rag_service import answer_farmer_question, get_sample_cases
+from weatherapp.services import get_weather_summary
 from django.views.generic import TemplateView
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.contrib.auth.models import User, auth
+from django.views.decorators.http import require_POST
+from django.views.decorators.csrf import csrf_exempt
 from .models import NewUser
 import speech_recognition as sr
 
@@ -29,6 +36,56 @@ class mainpage(TemplateView):
 # Register/Login function se redirect hona hai main page pe.
 def index(request):
     return render(request, 'index.html')
+
+
+def assistant(request):
+    context = {
+        "sample_cases": get_sample_cases(),
+        "crop": request.GET.get("crop", ""),
+        "disease": request.GET.get("disease", ""),
+        "city": request.GET.get("city", ""),
+        "chat_api_url": os.getenv("CHAT_FASTAPI_URL", "http://127.0.0.1:8001/chat"),
+    }
+    return render(request, "assistant.html", context)
+
+
+@csrf_exempt
+@require_POST
+def farmer_chat(request):
+    question = request.POST.get("message") or request.POST.get("input") or ""
+    city = request.POST.get("city", "")
+    crop = request.POST.get("crop", "")
+    disease_slug = request.POST.get("disease", "")
+    fastapi_url = os.getenv("CHAT_FASTAPI_URL", "http://127.0.0.1:8001/chat")
+
+    try:
+        response = requests.post(
+            fastapi_url,
+            json={
+                "message": question,
+                "city": city,
+                "crop": crop,
+                "disease": disease_slug,
+            },
+            timeout=2,
+        )
+        response.raise_for_status()
+        return JsonResponse(response.json())
+    except requests.RequestException:
+        pass
+
+    weather_summary = None
+    if city and any(word in question.lower() for word in ["weather", "rain", "spray", "humidity", "temperature", "mausam"]):
+        weather_summary = get_weather_summary(city)
+
+    result = answer_farmer_question(
+        question,
+        city=city,
+        crop=crop,
+        disease_slug=disease_slug,
+        weather_summary=weather_summary,
+    )
+    return JsonResponse(result)
 
 
 def detail(request):
