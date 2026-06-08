@@ -1,13 +1,32 @@
-<html>
-    {% load i18n %}
+{% load i18n %}
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% trans "Weather" %}</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{% static 'Css/weather.css' %}">
+</head>
 <body>
-    
-    <form action='/weatherresult' method='POST'>
-        {% csrf_token %}
-    {% trans "Cityname: " %}<input type='text' name='Cityname'>
-    <input type='submit'>
-     
-    </form>
+    <main class="weather-search">
+        <a href="{% url 'index' %}" class="back-link">{% trans "Home" %}</a>
+        <section class="weather-card">
+            <div>
+                <p class="eyebrow">{% trans "Farm forecast" %}</p>
+                <h1>{% trans "Weather Conditions" %}</h1>
+            </div>
+            <form action="{% url 'weatherresult' %}" method="POST">
+                {% csrf_token %}
+                <label for="Cityname">{% trans "City" %}</label>
+                <div class="weather-search-row">
+                    <input id="Cityname" type="text" name="Cityname" placeholder="{% trans 'Example: Pune' %}" required>
+                    <button type="submit">{% trans "Check" %}</button>
+                </div>
+            </form>
+        </section>
+    </main>
 </body>
-
 </html>
