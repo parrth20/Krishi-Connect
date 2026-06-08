@@ -37,6 +37,38 @@ Through the web-app we provide online tele-consultation services as well as offl
 
 4. Multilingual- Website is available in English, Hindi and other regional languages. The users can easily switch the language of the entire website using the options in the homepage.
 
+5. Farmer RAG Assistant- Farmers can chat with a local retrieval-based assistant for crop disease cure, irrigation, spraying, and weather-aware precautions. It works without an LLM API key by retrieving from the bundled agriculture knowledge base.
+
+6. Weather API- Weather pages and assistant answers use the Open-Meteo API for live city forecast, humidity, wind, rain chance, and farm advice. No API key is required for this default integration.
+
+7. Preloaded Crop Disease Samples- The project includes rice blast, tomato early blight, and potato late blight sample images. Open Plant Identification and use the sample buttons to see diagnosis, cure, and follow-up chat.
+
+## Run Locally
+
+```bash
+python3 -m venv .venv
+.venv/bin/python -m pip install -r requirements.txt
+.venv/bin/python manage.py runserver 127.0.0.1:8000
+```
+
+Or start Django and the FastAPI chatbot together:
+
+```bash
+./run_project.sh
+```
+
+Useful pages:
+
+- Farmer Assistant: http://127.0.0.1:8000/assistant
+- Plant upload and samples: http://127.0.0.1:8000/imgupload
+- Weather forecast: http://127.0.0.1:8000/weather
+- FastAPI chatbot docs: http://127.0.0.1:8001/docs
+
+Optional API keys:
+
+- `PLANTNET_API_KEY` can override the bundled PlantNet key for plant identification.
+- Weather uses Open-Meteo by default, so no weather API key is needed.
+
 ## UI/UX Design
 
 <img src="UI Design/Layoutpage.png" width="800"> 
