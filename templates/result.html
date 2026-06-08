@@ -55,7 +55,7 @@
          </a>
        </div>
        <div>
-         <img src="static/Images/Ellipse.png" alt="" width="50px" height="40px">
+         <img src="{% static 'Images/Ellipse.png' %}" alt="" width="50px" height="40px">
        </div>
      </div>
      <div>
@@ -67,7 +67,7 @@
              <div class="sidebar">
                   <div class="background">
                        <div class="logo">
-                            <img src="static/Images/logo.png" alt="logo">
+                            <img src="{% static 'Images/logo.png' %}" alt="logo">
                        </div>
                   </div>
                   <div class="menu">
@@ -95,6 +95,32 @@
 
     <div class="container-fluid">
         <h2 style="padding:1% 3% 0;">{% trans "Possible Outcomes" %}</h2>
+        {% if diagnosis %}
+        <div class="diagnosis-summary">
+            <div class="diagnosis-image">
+                <img src="{{ uploaded_img_url }}" alt="{{ diagnosis.crop }} {{ diagnosis.disease }}">
+            </div>
+            <div class="diagnosis-copy">
+                <p class="eyebrow">{% trans "Crop disease guidance" %}</p>
+                <h3>{{ diagnosis.crop }} - {{ diagnosis.disease }}</h3>
+                <p><b>{% trans "Confidence:" %}</b> {{ confidence_percent }}%</p>
+                <p><b>{% trans "Why:" %}</b> {{ diagnosis.reason }}</p>
+                <div class="diagnosis-answer">{{ diagnosis_answer|linebreaksbr }}</div>
+                {% if weather_advice %}
+                <div class="weather-advice">
+                    <h4>{% trans "Weather-aware precautions" %}</h4>
+                    <ul>
+                        {% for item in weather_advice %}
+                        <li>{{ item }}</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+                {% endif %}
+                <a class="btn btn-success" href="{{ assistant_url }}">{% trans "Chat about cure" %}</a>
+                <a class="btn btn-outline-success" href="/imgupload">{% trans "Upload another" %}</a>
+            </div>
+        </div>
+        {% endif %}
         <h4>{% trans "Found Match" %}</h4>
         <div class="container-match">
             <div class="row">

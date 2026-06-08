@@ -1,3 +1,5 @@
+import os
+
 import requests
 
 
@@ -5,12 +7,14 @@ def identify_plant(file_names):
     # PlantNet API endpoint
     url = "https://my-api.plantnet.org/v2/identify/all"
 
-    # Replace with your API key from dashboard
-    api_key = "2b10Bz5aV3mdnKlqL7ioP8Vie"
+    api_key = os.getenv("PLANTNET_API_KEY", "2b10Bz5aV3mdnKlqL7ioP8Vie")
 
     files = []
+    opened_files = []
     for img in file_names:
-        files.append(('images', open(img, 'rb')))
+        image_file = open(img, 'rb')
+        opened_files.append(image_file)
+        files.append(('images', image_file))
 
     params = {
     "api-key": api_key,
@@ -18,7 +22,7 @@ def identify_plant(file_names):
     }
 
     try:
-        response = requests.post(url, files=files, params=params)
+        response = requests.post(url, files=files, params=params, timeout=15)
 
         print("Status Code:", response.status_code)
         print("Response Text:", response.text)
@@ -30,6 +34,9 @@ def identify_plant(file_names):
             "error": "PlantNet API request failed",
             "details": str(e)
         }
+    finally:
+        for image_file in opened_files:
+            image_file.close()
 
 
 def recursive_items(dictionary):

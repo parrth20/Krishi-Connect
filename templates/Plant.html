@@ -118,6 +118,11 @@
                 <div class="image-upload" style="position:relative; top:5rem;">
                     <form action="/imageprocess" method="POST" enctype="multipart/form-data">
                         {% csrf_token %}
+                        <div class="diagnosis-fields">
+                          <input type="text" name="crop_name" placeholder="{% trans 'Crop name' %}">
+                          <input type="text" name="city" placeholder="{% trans 'City for weather' %}">
+                          <textarea name="symptoms" rows="3" placeholder="{% trans 'Symptoms on leaf or fruit' %}"></textarea>
+                        </div>
                         <label for="img" class="lbp"><i id="upload" class="fas fa-cloud-upload-alt fa-5x upload-box" style="top:2rem;" onchange="getImage(this.value); ">
                           
                         </i></label>
@@ -128,6 +133,20 @@
                         <input id="submit-button" type="submit" value="submit" class=" upload-button" /> 
                     
                     </form>
+
+                    <div class="preloaded-samples">
+                      <h2>{% trans "Preloaded crop samples" %}</h2>
+                      {% for case in sample_cases %}
+                      <div class="sample-diagnosis-card">
+                        <img src="{% static case.sample_image %}" alt="{{ case.crop }} {{ case.disease }}">
+                        <div>
+                          <h3>{{ case.crop }} - {{ case.disease }}</h3>
+                          <p>{{ case.description }}</p>
+                          <a href="{% url 'sample_diagnosis' case.slug %}">{{ case.button }}</a>
+                        </div>
+                      </div>
+                      {% endfor %}
+                    </div>
                 </div>
               
             </div>

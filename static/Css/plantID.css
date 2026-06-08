@@ -29,10 +29,11 @@
 .image-upload form{
     position: relative;
     left: 10rem;
-    height: 31rem;
+    min-height: 39rem;
     width: 25rem;
     background: url(../images/plant-background.png);
     border-radius: 20px;
+    padding-top: 1rem;
 }
 /* 
 .upload-box{
@@ -73,7 +74,7 @@
 
 .upload-button{
     position: relative;
-    top : 5rem;
+    top : 1rem;
     left: 10rem;
     color: black;
     text-decoration: none;
@@ -95,11 +96,84 @@
     background-color: white;
     border-radius: 20px;
     border: solid white;
-    height: 400px;
+    height: 260px;
     width: 300px;
     text-align: center;
-    padding-top: 50%;
+    padding-top: 32%;
     cursor: pointer;
+}
+
+.diagnosis-fields{
+    width: 19rem;
+    margin: 0 auto 0.6rem;
+    display: grid;
+    gap: 0.45rem;
+}
+
+.diagnosis-fields input,
+.diagnosis-fields textarea{
+    width: 100%;
+    border: 1px solid #d7c8ad;
+    border-radius: 8px;
+    padding: 0.55rem 0.7rem;
+    font-size: 0.95rem;
+    background: rgba(255, 255, 255, 0.95);
+}
+
+.preloaded-samples{
+    width: min(25rem, 92vw);
+    margin: 2rem 0 0 10rem;
+    padding: 1rem;
+    background: #ffffff;
+    border: 1px solid #e1d7c4;
+    border-radius: 8px;
+}
+
+.preloaded-samples h2{
+    margin: 0 0 0.75rem;
+    color: #035C41;
+    font-size: 1.15rem;
+}
+
+.sample-diagnosis-card{
+    display: grid;
+    grid-template-columns: 88px 1fr;
+    gap: 0.7rem;
+    padding: 0.65rem 0;
+    border-top: 1px solid #eee6d8;
+}
+
+.sample-diagnosis-card:first-of-type{
+    border-top: 0;
+}
+
+.sample-diagnosis-card img{
+    width: 88px;
+    height: 74px;
+    object-fit: cover;
+    border-radius: 6px;
+}
+
+.sample-diagnosis-card h3{
+    margin: 0 0 0.2rem;
+    font-size: 0.95rem;
+}
+
+.sample-diagnosis-card p{
+    margin: 0 0 0.45rem;
+    font-size: 0.84rem;
+    color: #675d4e;
+}
+
+.sample-diagnosis-card a{
+    display: inline-block;
+    padding: 0.35rem 0.6rem;
+    color: #ffffff;
+    background: #035C41;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 0.8rem;
+    font-weight: 700;
 }
 
 .plant-ul{
@@ -144,7 +218,11 @@
     .image-upload form{
         position: static;
         justify-content: flex-start;
-        height: 28rem;
+        min-height: 38rem;
+    }
+
+    .preloaded-samples{
+        margin: 1rem auto;
     }
 
     .upload-box{
